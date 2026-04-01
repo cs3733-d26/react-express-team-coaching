@@ -12,7 +12,6 @@ export default function TodoDemo() {
   // where all todos are stored
   const [todos, setTodos] = useState<Todo[]>([]);
   const [filter, setFilter] = useState<"all" | "active" | "completed">("all");
-  const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   // Fetch todos from backend on component mount
@@ -22,7 +21,6 @@ export default function TodoDemo() {
 
   async function fetchTodos() {
     try {
-      setLoading(true);
       setError(null);
       const response = await fetch(`${API_URL}/todos`);
       if (!response.ok) throw new Error('Failed to fetch todos');
@@ -30,16 +28,14 @@ export default function TodoDemo() {
       setTodos(data);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An error occurred');
-    } finally {
-      setLoading(false);
     }
-  }
+}
 
   // Filter todos based on current filter
   const filteredTodos = todos.filter((todo) => {
     if (filter === "active") return !todo.done;
     if (filter === "completed") return todo.done;
-    return true; // "all"
+    return true;
   });
 
   // function to add a new todo to our state
@@ -134,8 +130,6 @@ export default function TodoDemo() {
           Error: {error}
         </div>
       )}
-      
-      {loading && <div>Loading todos...</div>}
       
       <AddTodoForm onSubmit={addTodo} />
       

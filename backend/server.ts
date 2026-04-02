@@ -49,47 +49,47 @@ app.post('/todos', (req, res) => {
   res.status(201).json(newTodo);
 })
 
-// Update a todo (toggle done or edit text)
-app.patch('/todos/:id', (req, res) => {
-  const id = parseInt(req.params.id);
-  const { done, text } = req.body;
-  
-  const todo = todos.find(t => t.id === id);
-  
-  if (!todo) {
-    return res.status(404).json({ error: 'Todo not found' });
-  }
-  
-  if (done !== undefined) {
-    todo.done = done;
-  }
-  
-  if (text !== undefined) {
-    if (text.trim().length === 0) {
-      return res.status(400).json({ error: 'Todo text cannot be empty' });
-    }
-    todo.text = text.trim();
-  }
-  
-  res.json(todo);
-})
-
-// Delete a todo
-app.delete('/todos/:id', (req, res) => {
-  const id = parseInt(req.params.id);
-  const index = todos.findIndex(t => t.id === id);
-
-  if (index === -1) {
-    return res.status(404).json({ error: 'Todo not found' });
-  }
-  
-  todos.splice(index, 1);
-  res.status(204).send();
-})
-
-
-// Starts the server
-// can fetch the port from a dotenv 
+// // Update a todo (toggle done or edit text)
+// app.patch('/todos/:id', (req, res) => {
+//   const id = parseInt(req.params.id);
+//   const { done, text } = req.body;
+//
+//   const todo = todos.find(t => t.id === id);
+//
+//   if (!todo) {
+//     return res.status(404).json({ error: 'Todo not found' });
+//   }
+//
+//   if (done !== undefined) {
+//     todo.done = done;
+//   }
+//
+//   if (text !== undefined) {
+//     if (text.trim().length === 0) {
+//       return res.status(400).json({ error: 'Todo text cannot be empty' });
+//     }
+//     todo.text = text.trim();
+//   }
+//
+//   res.json(todo);
+// })
+//
+// // Delete a todo
+// app.delete('/todos/:id', (req, res) => {
+//   const id = parseInt(req.params.id);
+//   const index = todos.findIndex(t => t.id === id);
+//
+//   if (index === -1) {
+//     return res.status(404).json({ error: 'Todo not found' });
+//   }
+//
+//   todos.splice(index, 1);
+//   res.status(204).send();
+// })
+//
+//
+// // Starts the server
+// // can fetch the port from a dotenv
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

@@ -27,12 +27,12 @@ app.get('/health', (req, res) => {
 })
 
 // Get all todos
-app.get('/todos', (req, res) => {
+app.get('/display-todos', (req, res) => {
   res.json(todos);
 })
 
 // Create a new todo
-app.post('/todos', (req, res) => {
+app.post('/create-todo', (req, res) => {
   const { text } = req.body;
   
   if (!text || text.trim().length === 0) {
@@ -48,6 +48,24 @@ app.post('/todos', (req, res) => {
   todos.push(newTodo);
   res.status(201).json(newTodo);
 })
+
+/**
+ * Postman Things:
+ * SEND OUT: sign up with github & don't connect to a repo for now
+ *
+ * When testing locally, the site will always be http://localhost:3000, because that's
+ * where the server is served (as long as you've set the port to 3000)
+ *
+ * Show a POST req:
+ * First do one with an empty body @ http://localhost:3000/create-todo (should show an error)
+ * Then try again with body -> raw -> "text": "Feed cats" (will now get the todo object returned)
+ *
+ * Show a GET req (only after todos exist in the backend):
+ * http://localhost:3000/display-todos
+ *
+ */
+
+
 
 // // Update a todo (toggle done or edit text)
 // app.patch('/todos/:id', (req, res) => {

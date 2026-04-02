@@ -22,7 +22,7 @@ export default function TodoDemo() {
   async function fetchTodos() {
     try {
       setError(null);
-      const response = await fetch(`${API_URL}/todos`);
+      const response = await fetch(`${API_URL}/display-todos`);
       if (!response.ok) throw new Error('Failed to fetch todos');
       const data = await response.json();
       setTodos(data);
@@ -42,7 +42,7 @@ export default function TodoDemo() {
   async function addTodo(text: string) {
     try {
       setError(null);
-      const response = await fetch(`${API_URL}/todos`, {
+      const response = await fetch(`${API_URL}/create-todo`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ text })

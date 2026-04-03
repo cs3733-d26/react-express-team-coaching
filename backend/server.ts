@@ -2,35 +2,54 @@ import express from 'express'
 import cors from 'cors'
 
 // global constant which declares the app to be used with express
+const app = express()
 
 // clarifies that the app is allowed to send headers across CORS
+app.use(cors())
 
 // allows the express app to use jsonified data sent via express.json
+app.use(express.json())
 
+// TODO: Replace this in-memory storage with database (e.g., PostgreSQL/Prisma)
 // This array will be lost when the server restarts
+type Todo = {
+    id: number;
+    text: string;
+    done: boolean;
+};
 
+let todos: Todo[] = [];
+let nextId = 1;
 
 // endpoint for a get request (health check)
+app.get('/health', (req, res) => {
+    res.status(200).json({
+        message: "Hello from the Express server"
+    });
+});
 
 // Get all todos
-
+app.get('/display-todos', (req, res) => {
+    res.status(200).json(todos);
+});
 
 // Create a new todo
+app.post('/create-todo', (req, res) => {
+    const { text } = req.body;
 
+    if (!text || text.trim().length === 0) {
+        return res.status(400).json({ error: 'Todo text is required' });
+    }
 
+    const newTodo: Todo = {
+        id: nextId++,
+        text: text.trim(),
+        done: false
+    };
 
-
-
-
-
-
-
-
-
-
-
-
-
+    todos.push(newTodo);
+    res.status(201).json(newTodo);
+})
 
 /**
  * Postman Things:
@@ -91,3 +110,7 @@ import cors from 'cors'
 //
 // // Starts the server
 // // can fetch the port from a dotenv
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+})

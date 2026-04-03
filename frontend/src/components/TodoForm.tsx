@@ -6,6 +6,9 @@ export default function TodoForm() {
     const [error, setError] = useState<string | null>(null);
     const [sentCount, setSentCount] = useState(0);
 
+    async function addTodo(text: string) {
+    }
+
     return (
         <div>
             <h1>Todo Form</h1>
@@ -22,6 +25,7 @@ export default function TodoForm() {
                 </div>
             )}
 
+            <AddTodoForm onSubmit={addTodo}/>
 
         </div>
     );

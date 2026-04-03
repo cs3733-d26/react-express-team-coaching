@@ -1,19 +1,9 @@
-import {
-    BrowserRouter as Router,
-    Routes,
-    Route
-} from "react-router-dom";
-
-import TodoFormPage from "./pages/TodoFormPage";
-import TodoListPage from "./pages/TodoListPage";
+import TodoApp from "./components/TodoApp";
 
 export default function App() {
     return (
-        <Router>
-            <Routes>
-                <Route path="/todo-form" element={<TodoFormPage />} />
-                <Route path="/todo-list" element={<TodoListPage />} />
-            </Routes>
-        </Router>
+        <div>
+            <TodoApp />
+        </div>
     );
 }

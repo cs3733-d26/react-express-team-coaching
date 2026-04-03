@@ -1,9 +1,9 @@
-import TodoApp from "./components/TodoApp";
+import TodoForm from "./components/TodoForm";
 
 export default function App() {
     return (
         <div>
-            <TodoApp />
+            <TodoForm />
         </div>
     );
 }
